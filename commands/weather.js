@@ -39,7 +39,7 @@ export default async event => {
     // console.log(event.message.address)
 
     // 開始與結束時間
-    const timeFrom = encodeURIComponent(dayjs().format('YYYY-MM-DDTH:mm:ss'))
+    const timeFrom = encodeURIComponent(dayjs().add(8, 'hour').format('YYYY-MM-DDTH:mm:ss'))
     const timeTo = encodeURIComponent(dayjs().add(3, 'hour').format('YYYY-MM-DDTH:mm:ss'))
     const showTimeTo = dayjs().add(3, 'hour').format('MM/DD h:mm A')
     const showTimeFrom = dayjs().format('MM/DD h:mm A')
@@ -114,11 +114,11 @@ export default async event => {
 
       // 判斷天氣預報的類型，weatherNow ->目前、weatherDay -> 3天、weatherWeek -> 1週
       if (type === 'weatherNow') {
-        return `${baseURL}/F-D0047-${cityID}?Authorization=${process.env.WEATHER_TOKEN}&${getCityName() ? 'LocationName' : 'locationId'}=${locationParam}`
+        return `${baseURL}/F-D0047-${cityID}?Authorization=${process.env.WEATHER_TOKEN}&${getCityName() ? 'LocationName' : 'locationId'}=${locationParam}&timeFrom=${timeFrom}`
       } else if (type === 'weatherDay') {
-        return `${baseURL}/F-D0047-089?Authorization=${process.env.WEATHER_TOKEN}&LocationName=${getCityName() ? getCityName() : matchedCity}`
+        return `${baseURL}/F-D0047-089?Authorization=${process.env.WEATHER_TOKEN}&LocationName=${getCityName() ? getCityName() : matchedCity}&timeFrom=${timeFrom}`
       } else if (type === 'weatherWeek') {
-        return `${baseURL}/F-D0047-091?Authorization=${process.env.WEATHER_TOKEN}&LocationName=${getCityName() ? getCityName() : matchedCity}`
+        return `${baseURL}/F-D0047-091?Authorization=${process.env.WEATHER_TOKEN}&LocationName=${getCityName() ? getCityName() : matchedCity}&timeFrom=${timeFrom}`
       }
     }
     function isMatchingLocation(location, matchedCity, matchedDistrict) {
