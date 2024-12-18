@@ -1,6 +1,7 @@
 import axios from 'axios'
 import dayjs from 'dayjs'
 import dayjsPluginUTC from 'dayjs/plugin/utc.js'
+import dayjsPluginTimeZone from 'dayjs/plugin/timezone.js'
 import 'dotenv/config'
 
 import { getCityName } from '../utils/weatherdata.js'
@@ -10,6 +11,7 @@ import template from '../templates/fe.js'
 import fs from 'node:fs'
 
 dayjs.extend(dayjsPluginUTC)
+dayjs.extend(dayjsPluginTimeZone)
 
 export default async event => {
   // 依照API列出天氣預報相關縣市對應的資料
@@ -41,10 +43,10 @@ export default async event => {
     // console.log(getCityName())
     // console.log(event.message.address)
 
-    const timeUTC = dayjs.utc().utcOffset(8)
+    const timeTz = dayjs().tz('Asia/Taipei')
 
     // 開始與結束時間
-    const timeFrom = encodeURIComponent(timeUTC.format('YYYY-MM-DDTH:mm:ss'))
+    const timeFrom = encodeURIComponent(timeTz.format('YYYY-MM-DDTH:mm:ss'))
     const timeTo = encodeURIComponent(dayjs().add(3, 'hour').format('YYYY-MM-DDTH:mm:ss'))
     const showTimeTo = dayjs().add(3, 'hour').format('MM/DD h:mm A')
     const showTimeFrom = dayjs().format('MM/DD h:mm A')
