@@ -64,7 +64,9 @@ export default async event => {
 
     // API
     const uri = getWeatherURI(timeFrom, timeTo, matchedCity, machedDistrict)
-    const { data } = await axios.get(uri)
+    const { data } = await axios.get(uri, {
+      headers: { 'Accept-Language': 'zh-TW' }
+    })
 
     // 天氣預報地區資料陣列
     const weatherLocation = data.records.Locations[0].Location
