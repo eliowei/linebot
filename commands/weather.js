@@ -70,6 +70,8 @@ export default async event => {
       headers: { 'Accept-Language': 'zh-TW' }
     })
 
+    console.log(data.records.Locations[0].Location[0])
+
     // 天氣預報地區資料陣列
     const weatherLocation = data.records.Locations[0].Location
 
@@ -112,7 +114,7 @@ export default async event => {
 
       // 判斷天氣預報的類型，weatherNow ->目前、weatherDay -> 3天、weatherWeek -> 1週
       if (type === 'weatherNow') {
-        return `${baseURL}/F-D0047-${cityID}?Authorization=${process.env.WEATHER_TOKEN}&${getCityName() ? 'LocationName' : 'locationId'}=${locationParam}&timeFrom=${timeFrom}&timeTo=${timeTo}`
+        return `${baseURL}/F-D0047-${cityID}?Authorization=${process.env.WEATHER_TOKEN}&${getCityName() ? 'LocationName' : 'locationId'}=${locationParam}`
       } else if (type === 'weatherDay') {
         return `${baseURL}/F-D0047-089?Authorization=${process.env.WEATHER_TOKEN}&LocationName=${getCityName() ? getCityName() : matchedCity}`
       } else if (type === 'weatherWeek') {
