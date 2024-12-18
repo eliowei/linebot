@@ -142,6 +142,7 @@ export default async event => {
       // 模塊 -> 目前天氣狀況
       template.body.contents[2].contents[0].text = `${showTimeTo} 天氣狀況`
       weatherElement.forEach(element => {
+        console.log(element)
         if (element.ElementName === '天氣現象') {
           // 模塊 -> 目前天氣現象、時間
           template.body.contents[1].contents[0].contents[0].text = `${element.Time[0].ElementValue[0].Weather}`
