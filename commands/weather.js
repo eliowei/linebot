@@ -73,9 +73,7 @@ export default async event => {
     const uri = getWeatherURI(timeFrom, timeTo, matchedCity, machedDistrict)
 
     axios.defaults.withCredentials = true
-    const { data } = await axios.get(uri, {
-      headers: { 'Accept-Language': 'zh-TW' }
-    })
+    const { data } = await axios.get(uri)
 
     console.log(data.records.Locations[0].Location[0])
 

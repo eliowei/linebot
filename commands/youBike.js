@@ -9,7 +9,7 @@ export default async event => {
   } else if (event.message.address.includes('台北市')) {
     uri = 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json#'
   } else if (event.message.address.includes('桃園市')) {
-    uri = 'https://data.tycg.gov.tw/api/v1/rest/datastore/a1b4714b-3b75-4ff8-a8f2-cc377e4eaa0f?format=json'
+    uri = 'https://opendata.tycg.gov.tw/api/v1/dataset.api_access?rid=a1b4714b-3b75-4ff8-a8f2-cc377e4eaa0f&format=json'
   } else if (event.message.address.includes('新竹市')) {
     uri = 'https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/59/5776ed30-fa3c-48f4-9876-d8fb28df0501.json'
   } else if (event.message.address.includes('台中市')) {
@@ -58,7 +58,7 @@ export default async event => {
         }
       })
     } else if (event.message.address.includes('桃園市')) {
-      arr = data.result.records.map(record => {
+      arr = data.map(record => {
         return {
           sna: record.sna,
           total: record.tot,
@@ -107,6 +107,7 @@ export default async event => {
       })
     }
 
+    // console.log(arr)
     // 訊息文字資料
     const youBikepoints = await arr.map(youbikepoint => {
       youbikepoint.distance = distance(youbikepoint.latitude, youbikepoint.longitude, event.message.latitude, event.message.longitude, 'K')
@@ -131,7 +132,7 @@ export default async event => {
       })
       .slice(0, 2)
 
-    // console.log(youBikeLoaction)
+    console.log(youBikeLoaction)
     // 儲存訊息的資料
     const message = []
 
@@ -140,7 +141,7 @@ export default async event => {
         {
           type: 'location',
           title: youBikeLoaction[i].sna,
-          address: youBikeLoaction[i].sarea + youBikeLoaction[i].ar,
+          address: (youBikeLoaction[i].sarea ? youBikeLoaction[i].sarea : '') + youBikeLoaction[i].ar,
           latitude: parseFloat(youBikeLoaction[i].latitude),
           longitude: parseFloat(youBikeLoaction[i].longitude)
         },
