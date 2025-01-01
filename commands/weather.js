@@ -202,9 +202,15 @@ export default async event => {
         return '#00008B' // 深藍色 - 寒冷
       }
     }
-    // 將取得的文字。替換成，以及最後為。
+    // 將取得的文字。用正則表達式，取得指定的值，並重新return出顯示的文字
     function formatDescription(description) {
-      return description.split('。').join('，').replace(/，(?!.*，)/, '。')
+      const weatherMatch = description.match(/^(.*?)。/)
+      const rainMatch = description.match(/降雨機率(\d+%)/)
+      const tempMatch = description.match(/溫度攝氏([\d至\-]+度)/)
+      const comfortMatch = description.match(/溫度攝氏[\d至\-]+度。([^風。]*)/)
+
+      return `天氣狀況: ${weatherMatch ? weatherMatch[1] : '無資料'}\n溫度: ${tempMatch ? tempMatch[1] : '無資料'}\n降雨機率: ${rainMatch ? rainMatch[1] : '無資料'}\n舒適度: ${comfortMatch ? comfortMatch[1].trim() : '無資料'}
+      `.trim()
     }
     // 如果天氣預報類型是目前，則回覆flex message
     if (postbackdata.getPostBackWeatherType() === 'weatherNow') {
