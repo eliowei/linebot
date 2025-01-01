@@ -3,20 +3,27 @@ import { distance } from '../utils/distance.js'
 
 export default async event => {
   // 判斷定位的縣市取得不同的API
+
+  const cityUrls = {
+    新北市: 'https://data.ntpc.gov.tw/api/datasets/010e5b15-3823-4b20-b401-b1cf000550c5/json?page=0&size=1000',
+    台北市: 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json#',
+    桃園市: 'https://opendata.tycg.gov.tw/api/v1/dataset.api_access?rid=a1b4714b-3b75-4ff8-a8f2-cc377e4eaa0f&format=json',
+    新竹市: 'https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/59/5776ed30-fa3c-48f4-9876-d8fb28df0501.json',
+    台中市: 'https://ybjson02.youbike.com.tw:60008/yb2/taichung/gwjs.json',
+    高雄市: 'https://api.kcg.gov.tw/api/service/Get/b4dd9c40-9027-4125-8666-06bef1756092'
+  }
+
   let uri = ''
-  if (event.message.address.includes('新北市')) {
-    uri = 'https://data.ntpc.gov.tw/api/datasets/010e5b15-3823-4b20-b401-b1cf000550c5/json?page=0&size=1000'
-  } else if (event.message.address.includes('台北市')) {
-    uri = 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json#'
-  } else if (event.message.address.includes('桃園市')) {
-    uri = 'https://opendata.tycg.gov.tw/api/v1/dataset.api_access?rid=a1b4714b-3b75-4ff8-a8f2-cc377e4eaa0f&format=json'
-  } else if (event.message.address.includes('新竹市')) {
-    uri = 'https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/59/5776ed30-fa3c-48f4-9876-d8fb28df0501.json'
-  } else if (event.message.address.includes('台中市')) {
-    uri = 'https://ybjson02.youbike.com.tw:60008/yb2/taichung/gwjs.json'
-  } else if (event.message.address.includes('高雄市')) {
-    uri = 'https://api.kcg.gov.tw/api/service/Get/b4dd9c40-9027-4125-8666-06bef1756092'
-  } else {
+
+  for (const city in cityUrls) {
+    if (event.message.address.includes(city)) {
+      uri = cityUrls[city]
+      break
+    }
+  }
+
+  if (!uri) {
+    console.log('沒有取得YouBike API')
     return
   }
 
