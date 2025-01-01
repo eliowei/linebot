@@ -53,16 +53,11 @@
 ## 連接的公開資料、API 來源
 
 - YouBike
-
-  [臺北市資料大平台](https://data.taipei/dataset/detail?id=c6bc8aed-557d-41d5-bfb1-8da24f78f2fb)
+  [臺北市資料大平臺](https://data.taipei/dataset/detail?id=c6bc8aed-557d-41d5-bfb1-8da24f78f2fb)
 
   [新北市政府資料開放平臺](https://data.ntpc.gov.tw/datasets/010e5b15-3823-4b20-b401-b1cf000550c5#headerApplication)
 
   [桃園資料開放平台](https://opendata.tycg.gov.tw/datalist/5ca2bfc7-9ace-4719-88ae-4034b9a5a55c)
-
-  [新竹市政府開放平臺](https://opendata.hccg.gov.tw/OpenDataDetail.aspx?n=1&s=59)
-
-  [高雄城市資料平台](https://api.kcg.gov.tw/ServiceList/Detail/b4dd9c40-9027-4125-8666-06bef1756092)
 
 - 天氣預報
 
