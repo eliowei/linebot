@@ -24,6 +24,7 @@ bot.on('message', event => {
   if (event.message.type === 'text') {
     if (event.message.text === '找YouBike') {
       commandYouBikeQR(event)
+      postbackdata.setPostBackDate('Youbike')
     } else if (event.message.text === '天氣預報') {
       coomandWeatherTypeQR(event)
       postbackWeather.setWeatherData(true)
