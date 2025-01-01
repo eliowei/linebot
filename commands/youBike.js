@@ -27,6 +27,19 @@ export default async event => {
     return
   }
 
+  if (uri) {
+    try {
+      const response = await axios.get(uri, { timeout: 5000 }) // 設置超時時間為5秒
+      // 處理響應
+    } catch (error) {
+      if (error.code === 'ETIMEDOUT') {
+        console.error('Request timed out')
+      } else {
+        console.error('Request failed', error)
+      }
+    }
+  }
+
   try {
     const { data } = await axios.get(uri)
     let arr = data
