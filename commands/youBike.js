@@ -2,8 +2,7 @@ import axios from 'axios'
 import { distance } from '../utils/distance.js'
 
 export default async event => {
-  // 判斷定位的縣市取得不同的API
-
+  // 判斷定位的縣市取得不同的API，Render.com上新竹市、台中市、高雄市API請求會超時
   const cityUrls = {
     新北市: 'https://data.ntpc.gov.tw/api/datasets/010e5b15-3823-4b20-b401-b1cf000550c5/json?page=0&size=1000',
     台北市: 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json#',
@@ -25,19 +24,6 @@ export default async event => {
   if (!uri) {
     console.log('沒有取得YouBike API')
     return
-  }
-
-  if (uri) {
-    try {
-      const response = await axios.get(uri, { timeout: 5000 }) // 設置超時時間為5秒
-      // 處理響應
-    } catch (error) {
-      if (error.code === 'ETIMEDOUT') {
-        console.error('Request timed out')
-      } else {
-        console.error('Request failed', error)
-      }
-    }
   }
 
   try {
@@ -77,7 +63,6 @@ export default async event => {
           available_return_bikes: record.bemp
         }
       })
-      console.log(`新北市:${arr.length ? '有取得資料' : '未取得資料'}`)
     } else if (event.message.address.includes('桃園市')) {
       arr = data.map(record => {
         return {
@@ -91,7 +76,6 @@ export default async event => {
           available_return_bikes: record.bemp
         }
       })
-      console.log(`桃園市:${arr.length ? '有取得資料' : '未取得資料'}`)
     } else if (event.message.address.includes('新竹市')) {
       arr = data.map(record => {
         return {
@@ -101,7 +85,6 @@ export default async event => {
           ar: record.站點位置
         }
       })
-      console.log(`新竹市:${arr.length ? '有取得資料' : '未取得資料'}`)
     } else if (event.message.address.includes('台中市')) {
       arr = data.retVal.map(record => {
         return {
@@ -115,7 +98,6 @@ export default async event => {
           available_return_bikes: record.bemp
         }
       })
-      console.log(`台中市:${arr.length ? '有取得資料' : '未取得資料'}`)
     } else if (event.message.address.includes('高雄市')) {
       arr = data.data.retVal.map(record => {
         return {
@@ -129,7 +111,6 @@ export default async event => {
           available_return_bikes: record.bemp
         }
       })
-      console.log(`高雄市:${arr.length ? '有取得資料' : '未取得資料'}`)
     }
 
     // console.log(arr)
