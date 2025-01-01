@@ -57,6 +57,7 @@ export default async event => {
           available_return_bikes: record.bemp
         }
       })
+      console.log(`新北市:${arr.length ? '有取得資料' : '未取得資料'}`)
     } else if (event.message.address.includes('桃園市')) {
       arr = data.map(record => {
         return {
@@ -70,6 +71,7 @@ export default async event => {
           available_return_bikes: record.bemp
         }
       })
+      console.log(`桃園市:${arr.length ? '有取得資料' : '未取得資料'}`)
     } else if (event.message.address.includes('新竹市')) {
       arr = data.map(record => {
         return {
@@ -79,6 +81,7 @@ export default async event => {
           ar: record.站點位置
         }
       })
+      console.log(`新竹市:${arr.length ? '有取得資料' : '未取得資料'}`)
     } else if (event.message.address.includes('台中市')) {
       arr = data.retVal.map(record => {
         return {
@@ -92,6 +95,7 @@ export default async event => {
           available_return_bikes: record.bemp
         }
       })
+      console.log(`台中市:${arr.length ? '有取得資料' : '未取得資料'}`)
     } else if (event.message.address.includes('高雄市')) {
       arr = data.data.retVal.map(record => {
         return {
@@ -105,6 +109,7 @@ export default async event => {
           available_return_bikes: record.bemp
         }
       })
+      console.log(`高雄市:${arr.length ? '有取得資料' : '未取得資料'}`)
     }
 
     // console.log(arr)
