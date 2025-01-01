@@ -13,7 +13,7 @@ export default async event => {
   } else if (event.message.address.includes('新竹市')) {
     uri = 'https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/59/5776ed30-fa3c-48f4-9876-d8fb28df0501.json'
   } else if (event.message.address.includes('台中市')) {
-    uri = 'https://datacenter.taichung.gov.tw/swagger/OpenData/86dfad5c-540c-4479-bb7d-d7439d34eeb1'
+    uri = 'https://ybjson02.youbike.com.tw:60008/yb2/taichung/gwjs.json'
   } else if (event.message.address.includes('高雄市')) {
     uri = 'https://api.kcg.gov.tw/api/service/Get/b4dd9c40-9027-4125-8666-06bef1756092'
   } else {
