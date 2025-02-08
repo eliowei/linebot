@@ -35,8 +35,9 @@ export const checkWeatherList = (event) => {
   }
   const keys = Object.keys(list).find(key => event.message.text === key)
   if (keys) {
-    cityName = keys
-    return keys
+    const newKeys = keys.replace('台', '臺')
+    cityName = newKeys
+    return cityName
   }
   return false
 }

@@ -43,6 +43,7 @@ export default async event => {
     連江縣: 'F-D0047-081',
     金門縣: 'F-D0047-085'
   }
+
   try {
     // console.log(getCityName())
     // console.log(event.message.address)
