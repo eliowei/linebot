@@ -39,6 +39,8 @@ bot.on('message', event => {
       if (postbackWeather.getCityName()) {
         commandWeather(event)
         postbackWeather.setWeatherData(false)
+      } else {
+        commandWeather(event)
       }
     }
     // 分享GPS定位，檢查postback資料是youbike還是天氣預報相關

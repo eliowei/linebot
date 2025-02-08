@@ -31,6 +31,7 @@ let weatherdata
 export const checkWeatherList = (event) => {
   if (event === undefined) {
     cityName = undefined
+    weatherdata = false
     return false
   }
   const keys = Object.keys(list).find(key => event.message.text === key)
@@ -38,8 +39,10 @@ export const checkWeatherList = (event) => {
     const newKeys = keys.replace('台', '臺')
     cityName = newKeys
     return cityName
+  } else {
+    cityName = undefined
+    return false
   }
-  return false
 }
 
 export const getCityName = () => {
