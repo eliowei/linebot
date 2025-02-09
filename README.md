@@ -21,6 +21,8 @@
 
 - 功能選單點天氣預報或輸入**天氣預報**，先選擇要查看的天氣預報時間點，再選擇要分享位置或選縣市就能得到天氣預報資訊
 
+- 也能直接輸入縣市，再選擇要查看的天氣預報時間點
+
 - 功能選單點說明或輸入**說明**，會有說明介紹
 
 ## 功能
@@ -35,16 +37,20 @@
 ![IMG_2790](https://github.com/user-attachments/assets/e5632cac-3b4e-4ce9-abb0-953b3051ae3e)
 
 ### Youbike
-
 ![IMG_2906](https://github.com/user-attachments/assets/c7883c14-3259-4be7-89b5-3e2c19c891e3)
 ![IMG_2794](https://github.com/user-attachments/assets/351e5817-a1da-4b5e-aa1c-9bf4adac5583)
 ![IMG_2795](https://github.com/user-attachments/assets/6cd3bb71-4864-46e9-b50d-ded1f23ffbcc)
 
 ### 天氣預報
-
+#### 透過功能選單-天氣預報 點選
 ![IMG_2803](https://github.com/user-attachments/assets/bb6e3e39-2378-49b6-a5e4-8228f41d4171)
-![IMG_2804](https://github.com/user-attachments/assets/1584f0b8-783e-48d7-afc7-5c9c5ce63e73)
+![IMG_2963](https://github.com/user-attachments/assets/0f56220e-407a-488b-a984-4e7677240960)
+![IMG_2964](https://github.com/user-attachments/assets/bd7c75ea-2d8e-44cd-92ff-95a966451c2e)
 ![IMG_2905](https://github.com/user-attachments/assets/f30d85eb-1de5-432c-8e6b-e071ea6c4f8a)
+#### 直接輸入縣市
+![IMG_2965](https://github.com/user-attachments/assets/0ef579dd-6be4-4017-9a05-4bb125bbcb42)
+![IMG_2966](https://github.com/user-attachments/assets/b8666318-7f31-4dc8-b284-147de676edc4)
+
 
 ### 說明
 
