@@ -28,6 +28,7 @@ const list = {
 }
 let cityName
 let weatherdata
+let state
 export const checkWeatherList = (event) => {
   if (event === undefined) {
     cityName = undefined
@@ -60,4 +61,17 @@ export const setWeatherData = (type) => {
 
 export const getWeatherData = () => {
   return weatherdata
+}
+
+export const getWeatherState = () => {
+  return state
+}
+
+export const setWeatherState = (type) => {
+  if (type === true) {
+    state = true
+  } else if (type === false) {
+    state = false
+  }
+  return state
 }

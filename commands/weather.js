@@ -45,9 +45,6 @@ export default async event => {
   }
 
   try {
-    // console.log(getCityName())
-    // console.log(event.message.address)
-
     const timeTz = dayjs().tz('Asia/Taipei')
 
     // 開始與結束時間
@@ -55,9 +52,6 @@ export default async event => {
     const timeTo = encodeURIComponent(dayjs().add(3, 'hour').format('YYYY-MM-DDTH:mm:ss'))
     const showTimeTo = dayjs().add(3, 'hour').format('MM/DD h:mm A')
     const showTimeFrom = dayjs().format('MM/DD h:mm A')
-
-    // console.log(timeFrom)
-    // console.log(timeTo)
 
     // 宣告正列表達式
     const cityRegex = /(?:台灣)?([^\d一二三四五六七八九十]+(市|縣))/
@@ -71,16 +65,11 @@ export default async event => {
     const matchedCity = cityMatch ? cityMatch[1] : null
     const machedDistrict = districtMatch ? districtMatch[2] : null
 
-    // console.log('matchedCity', matchedCity)
-    // console.log('machedDistrict', machedDistrict)
-
     // API
     const uri = getWeatherURI(timeFrom, timeTo, matchedCity, machedDistrict)
 
     axios.defaults.withCredentials = true
     const { data } = await axios.get(uri)
-
-    console.log(data.records.Locations[0].Location[0])
 
     // 天氣預報地區資料陣列
     const weatherLocation = data.records.Locations[0].Location
@@ -88,9 +77,6 @@ export default async event => {
     // 目前的天氣預報模板
     const weatherTemplate = template()
     const message = []
-
-    // console.log(postbackdata.getPostBackWeatherType())
-    // console.log(weatherLocation)
 
     weatherLocation.forEach(location => {
       // 各地區的天氣資料
@@ -123,11 +109,11 @@ export default async event => {
       const locationParam = getCityName() ? getCityName() : list[matchedCity]
 
       // 判斷天氣預報的類型，weatherNow ->目前、weatherDay -> 3天、weatherWeek -> 1週
-      if (type === 'weatherNow') {
+      if (type === 'weatherNow' || type === 'weatherNowDirectInput') {
         return `${baseURL}/F-D0047-${cityID}?Authorization=${process.env.WEATHER_TOKEN}&${getCityName() ? 'LocationName' : 'locationId'}=${locationParam}&timeFrom=${timeFrom}`
-      } else if (type === 'weatherDay') {
+      } else if (type === 'weatherDay' || type === 'weatherDayDirectInput') {
         return `${baseURL}/F-D0047-089?Authorization=${process.env.WEATHER_TOKEN}&LocationName=${getCityName() ? getCityName() : matchedCity}&timeFrom=${timeFrom}`
-      } else if (type === 'weatherWeek') {
+      } else if (type === 'weatherWeek' || type === 'weatherWeekDirectInput') {
         return `${baseURL}/F-D0047-091?Authorization=${process.env.WEATHER_TOKEN}&LocationName=${getCityName() ? getCityName() : matchedCity}&timeFrom=${timeFrom}`
       }
     }
@@ -137,14 +123,14 @@ export default async event => {
       return (
         locationName === matchedDistrict ||
         locationName === getCityName() ||
-        (['weatherDay', 'weatherWeek'].includes(postbackdata.getPostBackWeatherType()) &&
+        (['weatherDay', 'weatherWeek', 'weatherDayDirectInput', 'weatherWeekDirectInput'].includes(postbackdata.getPostBackWeatherType()) &&
           locationName === matchedCity)
       )
     }
     // 判斷天氣預報的類型並執行相對應的function
     function processWeatherData(type, weatherElement, template, showTimeFrom, showTimeTo, matchedCity, matchedDistrict) {
       console.log('type值:', type)
-      if (type === 'weatherNow') {
+      if (type === 'weatherNow' || type === 'weatherNowDirectInput') {
         updateWeatherTemplateNow(template, weatherElement, showTimeFrom, showTimeTo)
       } else {
         const info = generateWeatherInfo(type, weatherElement)
@@ -182,7 +168,7 @@ export default async event => {
     }
     // 3天、1週天氣預報文字訊息
     function generateWeatherInfo(type, weatherElement) {
-      let info = `${getCityName() ? getCityName() : matchedCity + machedDistrict} - ${type === 'weatherDay' ? '未來3天' : '未來1週'}天氣預報\n`
+      let info = `${getCityName() ? getCityName() : matchedCity + machedDistrict} - ${type === ('weatherDay' || 'weatherDayDirectInput') ? '未來3天' : '未來1週'}天氣預報\n`
 
       weatherElement.forEach(element => {
         if (element.ElementName === '天氣預報綜合描述') {
@@ -218,7 +204,7 @@ export default async event => {
       `.trim()
     }
     // 如果天氣預報類型是目前，則回覆flex message
-    if (postbackdata.getPostBackWeatherType() === 'weatherNow') {
+    if (postbackdata.getPostBackWeatherType() === 'weatherNow' || postbackdata.getPostBackWeatherType() === 'weatherNowDirectInput') {
       const result = await event.reply({
         type: 'flex',
         altText: '目前天氣預報',
@@ -227,12 +213,11 @@ export default async event => {
           contents: [weatherTemplate]
         }
       })
-      // console.log(result)
       // 如果flex message模塊發生錯誤，有錯誤訊息，將寫入的模塊JSON格式產生在dump，方便後續排除問題
       if (process.env.DEBUG === 'true' && result.message) {
         fs.writeFileSync('./dump/weatherTemplate.json', JSON.stringify(weatherTemplate, null, 2))
       }
-    } else if (postbackdata.getPostBackWeatherType() !== 'weatherNow') {
+    } else if (postbackdata.getPostBackWeatherType() !== 'weatherNow' || postbackdata.getPostBackWeatherType() !== 'weatherNowDirectInput') {
       // 回覆 message
       const result = await event.reply(message)
       // console.log(result)
