@@ -52,8 +52,7 @@ bot.on('message', event => {
       // 如果不是點擊天氣預報選單
     } else if (!postbackWeather.getWeatherData()) {
       // 取得使用者輸入的縣市名稱
-      const cityNames = postbackWeather.getCityName()
-      if (event.message.text.includes(cityNames)) {
+      if (postbackWeather.getCityName()) {
         // 判斷是點擊選單還是直接輸入
         postbackWeather.setWeatherState(true)
         postbackWeather.setWeatherData(false)
